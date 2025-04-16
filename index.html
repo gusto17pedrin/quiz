@@ -3,174 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Inflamação Crônica</title>
+  <title>Teste de Inflamação Crônica</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffe2e2, #ffd6d6);
-      padding: 2rem;
+      background-color: #fff8f0;
+      padding: 20px;
       color: #333;
     }
-    .quiz-container {
-      max-width: 500px;
-      margin: 0 auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      animation: fadeIn 0.5s ease;
+    h1, h2, h3 {
+      color: #c0392b;
     }
-    .step {
-      display: none;
-      animation: fadeIn 0.3s ease;
+    .question {
+      margin-bottom: 30px;
     }
-    .step.active { display: block; }
-    h2 { margin-bottom: 1rem; font-size: 1.5rem; }
-    .option {
-      background: #ffe5e5;
-      padding: 1rem;
-      border-radius: 10px;
-      margin-bottom: 1rem;
+    .options button {
+      display: block;
+      margin: 10px 0;
+      padding: 12px;
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      display: flex;
-      align-items: center;
-      font-size: 1rem;
     }
-    .option:hover { background: #ffcccc; }
-    .emoji { margin-right: 0.5rem; font-size: 1.2rem; }
-    .center { text-align: center; margin-top: 20px; }
-    img { width: 100%; border-radius: 12px; margin-top: 10px; }
-    .botao {
-      display: inline-block;
-      background: linear-gradient(to right, #ff5f6d, #ffc371);
-      color: white;
-      padding: 15px 25px;
+    .options button:hover {
+      background-color: #c0392b;
+    }
+    .slider {
+      width: 100%;
+    }
+    .highlight {
+      background-color: #ffddc1;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .promo {
+      background-color: #fff0e6;
+      border: 2px dashed #e67e22;
+      padding: 20px;
+      margin-top: 40px;
       border-radius: 12px;
-      text-decoration: none;
-      font-size: 18px;
-      margin-top: 20px;
-      animation: pulse 1.5s infinite;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .promo img {
+      max-width: 100%;
+      margin-bottom: 10px;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .countdown {
+      font-weight: bold;
+      color: red;
+      font-size: 1.2em;
+    }
+    .price {
+      font-size: 1.5em;
+      color: #27ae60;
     }
   </style>
 </head>
 <body>
-  <div class="quiz-container" id="quizContainer"></div>
+  <h1>Teste rápido e gratuito de inflamação crônica!</h1>
+  <p><strong>Esse é um dos principais bloqueadores do emagrecimento na mulher após os 60 anos!</strong></p>
+  
+  <div class="question">
+    <h2>Qual sua idade?</h2>
+    <div class="options">
+      <button>Tenho menos de 50 anos</button>
+      <button>Tenho entre 51 e 59 anos</button>
+      <button>Tenho entre 60 e 69 anos</button>
+      <button>Tenho entre 70 e 75 anos</button>
+      <button>Tenho 76 anos ou mais</button>
+    </div>
+    <small>Ao escolher sua idade e continuar, você concorda com nossos <a href="#">Termos de Serviço</a> | <a href="#">Política de Privacidade</a></small>
+  </div>
 
-  <script>
-    const steps = [
-      {
-        question: "🎯 Qual sua idade?",
-        options: ["🧒 Tenho menos de 50 anos", "👩 Tenho entre 51 e 59 anos", "👵 Tenho entre 60 e 69 anos", "🧓 Tenho entre 70 e 75 anos", "🎂 Tenho 76 anos ou mais"]
-      },
-      {
-        question: "⚖️ Qual seu peso atual?",
-        options: ["⚪ 40kg", "⚪ 70kg", "⚪ 100kg", "⚪ 130kg", "⚪ 160kg", "⚪ 190kg", "⚪ 220kg", "⚪ 250kg"]
-      },
-      {
-        question: "📏 Qual sua altura?",
-        options: ["📉 140cm", "📏 150cm", "📐 160cm", "📈 170cm", "📊 180cm", "📎 190cm", "📌 200cm"]
-      },
-      {
-        question: "📏 Medida da circunferência abdominal?",
-        options: ["🧍‍♀️ Menos de 88cm", "⚠️ Por volta de 88cm", "🚨 Maior que 88cm", "❓ Não sei"]
-      },
-      {
-        question: "💢 Você sente dores frequentes no corpo ou articulações?",
-        options: ["🙂 Raramente", "😐 Às vezes", "😣 Frequentemente"]
-      },
-      {
-        question: "👗 Como você descreveria seu físico?",
-        options: ["🪞 Cintura fina", "📏 Cintura igual ao quadril", "📐 Cintura maior que o quadril", "🧲 Cintura muito maior"]
-      },
-      {
-        question: "🚽 Como está seu intestino?",
-        options: ["✅ Regular", "⚠️ Às vezes alterado", "❌ Muito desregulado"]
-      },
-      {
-        question: "🧴 Lesões ou irritações na pele?",
-        options: ["🧼 Pele saudável", "🤔 Às vezes", "🔥 Inflamações frequentes"]
-      },
-      {
-        question: "🧘‍♀️ Seu corpo está tenso?",
-        options: ["✅ Sim", "❌ Não"]
-      },
-      {
-        question: "📍 Onde sente mais tensão no corpo?",
-        options: ["🦵 Quadris/Pelve", "💢 Lombar", "🧠 Pescoço", "💪 Ombros", "🦷 Mandíbula", "🧍‍♀️ Corpo inteiro", "🚫 Nenhuma"]
-      },
-      {
-        question: "🧬 Tem alguma dessas condições de saúde?",
-        options: ["🩺 Pressão alta", "🍭 Pré-diabetes", "🩸 Colesterol alterado", "🧠 Hipotireoidismo", "🍺 Gordura no fígado", "🧾 Outras doenças", "🙌 Nada"]
-      },
-      {
-        question: "❤️ Como está sua libido?",
-        options: ["🔥 Alta", "❄️ Baixa"]
-      },
-      {
-        question: "⏳ Analisando seus dados...",
-        options: ["🔄 Aguarde..."]
-      },
-      {
-        question: "📉 Esse é seu nível de inflamação crônica:",
-        options: ["🧪 Você está aqui: 14% - Muito inflamada", "✅ Limite saudável seria 5%"]
-      },
-      {
-        question: "😱 Quais seus maiores medos?",
-        options: ["👶 Não ver netos crescerem", "🧓 Ficar dependente", "📈 Continuar engordando", "👗 Usar só o que cabe", "💔 Ter um infarto", "❓ Outros"]
-      },
-      {
-        question: "🤯 Por que você não conseguiu emagrecer até agora?",
-        options: ["🍰 Não consigo cortar doces/massas", "🏋️‍♀️ Não consigo fazer exercício", "🧘 Falta disciplina", "🐢 Metabolismo lento", "😖 Como por ansiedade", "🥗 Não sei montar pratos", "🔎 Outros"]
-      },
-      {
-        question: "👩‍⚕️ Se existisse uma metodologia para mulheres 60+ que resolve tudo isso, você gostaria de conhecer?",
-        options: ["🙋‍♀️ Sim, quero conhecer", "❌ Não é minha prioridade"]
-      }
-    ];
+  <div class="question">
+    <h2>Qual é o seu peso atual?</h2>
+    <p>Toque e arraste para o lado até encontrar o seu peso</p>
+    <input type="range" min="40" max="250" value="70" class="slider">
+    <p><strong>70kg</strong> - Arraste para ajustar</p>
+    <button>Continuar</button>
+  </div>
 
-    const container = document.getElementById("quizContainer");
-    let stepIndex = 0;
+  <!-- Adicione aqui os blocos das outras perguntas conforme o mesmo padrão acima -->
 
-    function renderStep() {
-      if (stepIndex >= steps.length) return showFinalContent();
-      const step = steps[stepIndex];
-      const html = `
-        <div class="step active">
-          <h2>${step.question}</h2>
-          ${step.options.map(option => `<div class="option" onclick="nextStep()">${option}</div>`).join('')}
-        </div>
-      `;
-      container.innerHTML = html;
-    }
+  <div class="promo">
+    <h2>Felizmente, já foi criada a metodologia para tirar a inflamação crônica e emagrecer!</h2>
+    <p>Esse método foi criado pela <strong>Dra. Cláudia Benevides (CRM 117.369/SP)</strong> após estudar mais de 2 mil artigos científicos.</p>
+    <img src="claudia-antes.jpg" alt="Antes">
+    <img src="claudia-depois.jpg" alt="Depois">
 
-    function nextStep() {
-      stepIndex++;
-      renderStep();
-    }
+    <h3>Você terá acesso a:</h3>
+    <ul>
+      <li>Receitas normais sem passar fome</li>
+      <li>42 chás para desinchar</li>
+      <li>11 sementes para controlar colesterol</li>
+      <li>Top fibras para regular intestino</li>
+      <li>9 sucos contra gordura nas pernas</li>
+      <li>Sucos que melhoram colágeno</li>
+    </ul>
 
-    function showFinalContent() {
-      container.innerHTML = `
-        <div class="center">
-          <h2>🎉 Boa notícia!</h2>
-          <p>Já existe uma solução validada por mais de 14 mil mulheres para combater a inflamação e emagrecer mesmo após os 60 anos — sem cortar os prazeres da vida!</p>
-          <img src="https://via.placeholder.com/400x200?text=Antes+e+Depois+Dra+Claudia" alt="Antes e depois">
-          <a class="botao" href="https://seulinkdepagamento.com" target="_blank">👉 Quero conhecer o método agora</a>
-        </div>
-      `;
-    }
-
-    renderStep();
-  </script>
+    <p class="highlight">LIVEs semanais com a Dra. Cláudia direto no WhatsApp!</p>
+    <h2 class="price">De R$147,00 por apenas <strong>R$9,90</strong> à vista</h2>
+    <button>Adquirir Agora</button>
+    <p class="countdown">Oferta válida pelos próximos minutos: <strong>09:57</strong></p>
+    <p><strong>Garantia de 7 Dias!</strong> Se não gostar, devolvemos seu dinheiro 100%.</p>
+  </div>
 </body>
 </html>
