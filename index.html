@@ -1,134 +1,169 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Saudável sem Neura</title>
+  <title>Quiz Inflamação Crônica</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffe3e3, #ffeaa7);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: linear-gradient(135deg, #ffe2e2, #ffd6d6);
+      padding: 2rem;
+      color: #333;
     }
     .quiz-container {
+      max-width: 500px;
+      margin: 0 auto;
       background: white;
-      border-radius: 16px;
-      box-shadow: 0 0 24px rgba(0,0,0,0.2);
       padding: 2rem;
-      max-width: 400px;
-      width: 100%;
-      animation: fadeIn 0.5s ease-in-out;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease;
     }
-    .question {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-    .option {
-      background-color: #ff7675;
-      color: white;
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .option:hover {
-      transform: scale(1.05);
-    }
-    .hidden {
+    .step {
       display: none;
+      animation: fadeIn 0.3s ease;
     }
-    .final-btn {
-      background: #00b894;
-      color: white;
+    .step.active { display: block; }
+    h2 { margin-bottom: 1rem; font-size: 1.5rem; }
+    .option {
+      background: #ffe5e5;
       padding: 1rem;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.2rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
       cursor: pointer;
-      animation: pulse 1s infinite;
-      width: 100%;
+      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
     }
+    .option:hover { background: #ffcccc; }
+    .emoji { margin-right: 0.5rem; font-size: 1.2rem; }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
   </style>
 </head>
 <body>
-  <div class="quiz-container" id="quiz">
-    <!-- Perguntas serão inseridas via JavaScript -->
+  <div class="quiz-container" id="quizContainer">
+    <!-- Etapas serão renderizadas dinamicamente -->
   </div>
 
   <script>
-    const quizData = [
-      { q: "Como você se sente após as refeições?", options: ["😴 Sonolenta", "💣 Estufada", "🙂 De boas", "😫 Inchada"] },
-      { q: "Qual dessas você consome com mais frequência?", options: ["🍞 Pão", "🍝 Massa", "🍩 Doce", "🍻 Cervejinha"] },
-      { q: "Como está seu intestino?", options: ["🚽 Preso", "😐 Normal", "⚡ Acelerado", "❓ Nem sei"] },
-      { q: "Você costuma sentir dor nas pernas ou inchaço?", options: ["😓 Sim, direto", "🆗 Às vezes", "💪 Não", "🤷‍♀️ Nunca reparei"] },
-      { q: "Quantos anos você tem?", options: ["👵 50+", "🧓 60+", "🧑‍🦳 70+", "🧒 Menos de 50"] },
-      { q: "Você já tentou emagrecer antes?", options: ["🥦 Dieta restrita", "💊 Remédio", "🏋️ Exercício", "😤 Tentei de tudo"] },
-      { q: "Você consegue cortar doces, massas e cerveja?", options: ["❌ Nem pensar", "🥲 Tento, mas não consigo", "✔️ Sim", "🤷‍♀️ Depende"] },
-      { q: "Quer saber o caminho para emagrecer sem abrir mão do prazer?", options: ["🔥 SIM, mostra logo!", "😮 Agora fiquei curiosa", "🤔 Quero entender melhor", "🙋‍♀️ Quero começar hoje"] }
+    const steps = [
+      {
+        question: "🎯 Qual sua idade?",
+        options: [
+          "🧒 Tenho menos de 50 anos",
+          "👩 Tenho entre 51 e 59 anos",
+          "👵 Tenho entre 60 e 69 anos",
+          "🧓 Tenho entre 70 e 75 anos",
+          "🎂 Tenho 76 anos ou mais"
+        ]
+      },
+      {
+        question: "⚖️ Qual seu peso atual?",
+        options: ["⚪ 40kg", "⚪ 70kg", "⚪ 100kg", "⚪ 130kg", "⚪ 160kg", "⚪ 190kg", "⚪ 220kg", "⚪ 250kg"]
+      },
+      {
+        question: "📏 Qual sua altura?",
+        options: ["📉 140cm", "📏 150cm", "📐 160cm", "📈 170cm", "📊 180cm", "📎 190cm", "📌 200cm"]
+      },
+      {
+        question: "📏 Medida da circunferência abdominal?",
+        options: ["🧍‍♀️ Menos de 88cm", "⚠️ Por volta de 88cm", "🚨 Maior que 88cm", "❓ Não sei"]
+      },
+      {
+        question: "💢 Você sente dores frequentes no corpo ou articulações?",
+        options: ["🙂 Raramente", "😐 Às vezes", "😣 Frequentemente"]
+      },
+      {
+        question: "👗 Como você descreveria seu físico?",
+        options: ["🪞 Cintura fina", "📏 Cintura igual ao quadril", "📐 Cintura maior que o quadril", "🧲 Cintura muito maior"]
+      },
+      {
+        question: "🚽 Como está seu intestino?",
+        options: ["✅ Regular", "⚠️ Às vezes alterado", "❌ Muito desregulado"]
+      },
+      {
+        question: "🧴 Lesões ou irritações na pele?",
+        options: ["🧼 Pele saudável", "🤔 Às vezes", "🔥 Inflamações frequentes"]
+      },
+      {
+        question: "🧘‍♀️ Seu corpo está tenso?",
+        options: ["✅ Sim", "❌ Não"]
+      },
+      {
+        question: "📍 Onde sente mais tensão no corpo?",
+        options: ["🦵 Quadris/Pelve", "💢 Lombar", "🧠 Pescoço", "💪 Ombros", "🦷 Mandíbula", "🧍‍♀️ Corpo inteiro", "🚫 Nenhuma"]
+      },
+      {
+        question: "🧬 Tem alguma dessas condições de saúde?",
+        options: ["🩺 Pressão alta", "🍭 Pré-diabetes", "🩸 Colesterol alterado", "🧠 Hipotireoidismo", "🍺 Gordura no fígado", "🧾 Outras doenças", "🙌 Nada"]
+      },
+      {
+        question: "❤️ Como está sua libido?",
+        options: ["🔥 Alta", "❄️ Baixa"]
+      },
+      {
+        question: "😱 Quais seus maiores medos?",
+        options: ["👶 Não ver meus netos crescerem", "🧓 Ficar dependente", "📈 Continuar engordando", "👗 Não ter roupas que sirvam", "💔 Ter um infarto", "🔎 Outros"]
+      },
+      {
+        question: "🧠 Por que você acha que não conseguiu emagrecer ainda?",
+        options: ["🍰 Não consigo cortar doces", "🏋️‍♀️ Não faço exercício", "🧘 Falta disciplina", "🐢 Metabolismo lento", "😖 Ansiedade", "🥗 Não sei combinar alimentos", "❓ Outros"]
+      },
+      {
+        question: "🤔 Se existisse uma solução criada só para mulheres 60+ que resolve tudo isso, você gostaria de conhecer?",
+        options: ["🙋‍♀️ Sim, quero conhecer", "🤷‍♀️ Não, não é minha prioridade"]
+      }
     ];
 
-    const quizContainer = document.getElementById("quiz");
-    let currentStep = 0;
+    const container = document.getElementById('quizContainer');
+    let stepIndex = 0;
 
-    function showStep(step) {
-      const data = quizData[step];
-      quizContainer.innerHTML = `
-        <div class="question">${data.q}</div>
-        <div class="options">
-          ${data.options.map(option => `<div class="option" onclick="nextStep()">${option}</div>`).join('')}
+    function renderStep() {
+      if (stepIndex >= steps.length) return showLoading();
+
+      const step = steps[stepIndex];
+      const html = `
+        <div class="step active">
+          <h2>${step.question}</h2>
+          ${step.options.map(option => `<div class="option" onclick="nextStep()">${option}</div>`).join('')}
         </div>
       `;
+      container.innerHTML = html;
     }
 
     function nextStep() {
-      currentStep++;
-      if (currentStep < quizData.length) {
-        showStep(currentStep);
-      } else {
-        showFinal();
-      }
+      stepIndex++;
+      renderStep();
     }
 
-    function showFinal() {
-      quizContainer.innerHTML = `
-        <div class="question">
-          🧠 Analisando suas respostas...
-          <br><br>
-          <strong>Seu perfil foi identificado com risco alto de inflamação crônica e dificuldade em emagrecer com métodos tradicionais!</strong>
-          <br><br>
-          A Dra. Cláudia acabou de liberar uma condição especial SÓ pra você 👇
+    function showLoading() {
+      container.innerHTML = `
+        <div class="step active">
+          <h2>⏳ Analisando seus dados...</h2>
+          <p style="margin-top: 1rem; font-size: 1.2rem;">Carregando... <span id="loading">0%</span></p>
         </div>
-        <br>
-        <button class="final-btn" onclick="window.location.href='https://seudominio.com/promocao'">
-          QUERO EMAGRECER COMENDO O QUE GOSTO!
-        </button>
       `;
+      let percent = 0;
+      let loading = document.getElementById('loading');
+      let interval = setInterval(() => {
+        percent += Math.floor(Math.random() * 5 + 1);
+        if (percent >= 100) {
+          percent = 100;
+          clearInterval(interval);
+          window.location.href = "https://tua-oferta.com/";
+        }
+        loading.innerText = percent + "%";
+      }, 120);
     }
 
-    // Inicia o quiz
-    showStep(currentStep);
+    renderStep();
   </script>
 </body>
 </html>
