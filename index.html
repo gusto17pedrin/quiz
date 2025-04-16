@@ -40,29 +40,38 @@
     }
     .option:hover { background: #ffcccc; }
     .emoji { margin-right: 0.5rem; font-size: 1.2rem; }
-
+    .center { text-align: center; margin-top: 20px; }
+    img { width: 100%; border-radius: 12px; margin-top: 10px; }
+    .botao {
+      display: inline-block;
+      background: linear-gradient(to right, #ff5f6d, #ffc371);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
   </style>
 </head>
 <body>
-  <div class="quiz-container" id="quizContainer">
-    <!-- Etapas serão renderizadas dinamicamente -->
-  </div>
+  <div class="quiz-container" id="quizContainer"></div>
 
   <script>
     const steps = [
       {
         question: "🎯 Qual sua idade?",
-        options: [
-          "🧒 Tenho menos de 50 anos",
-          "👩 Tenho entre 51 e 59 anos",
-          "👵 Tenho entre 60 e 69 anos",
-          "🧓 Tenho entre 70 e 75 anos",
-          "🎂 Tenho 76 anos ou mais"
-        ]
+        options: ["🧒 Tenho menos de 50 anos", "👩 Tenho entre 51 e 59 anos", "👵 Tenho entre 60 e 69 anos", "🧓 Tenho entre 70 e 75 anos", "🎂 Tenho 76 anos ou mais"]
       },
       {
         question: "⚖️ Qual seu peso atual?",
@@ -109,25 +118,32 @@
         options: ["🔥 Alta", "❄️ Baixa"]
       },
       {
+        question: "⏳ Analisando seus dados...",
+        options: ["🔄 Aguarde..."]
+      },
+      {
+        question: "📉 Esse é seu nível de inflamação crônica:",
+        options: ["🧪 Você está aqui: 14% - Muito inflamada", "✅ Limite saudável seria 5%"]
+      },
+      {
         question: "😱 Quais seus maiores medos?",
-        options: ["👶 Não ver meus netos crescerem", "🧓 Ficar dependente", "📈 Continuar engordando", "👗 Não ter roupas que sirvam", "💔 Ter um infarto", "🔎 Outros"]
+        options: ["👶 Não ver netos crescerem", "🧓 Ficar dependente", "📈 Continuar engordando", "👗 Usar só o que cabe", "💔 Ter um infarto", "❓ Outros"]
       },
       {
-        question: "🧠 Por que você acha que não conseguiu emagrecer ainda?",
-        options: ["🍰 Não consigo cortar doces", "🏋️‍♀️ Não faço exercício", "🧘 Falta disciplina", "🐢 Metabolismo lento", "😖 Ansiedade", "🥗 Não sei combinar alimentos", "❓ Outros"]
+        question: "🤯 Por que você não conseguiu emagrecer até agora?",
+        options: ["🍰 Não consigo cortar doces/massas", "🏋️‍♀️ Não consigo fazer exercício", "🧘 Falta disciplina", "🐢 Metabolismo lento", "😖 Como por ansiedade", "🥗 Não sei montar pratos", "🔎 Outros"]
       },
       {
-        question: "🤔 Se existisse uma solução criada só para mulheres 60+ que resolve tudo isso, você gostaria de conhecer?",
-        options: ["🙋‍♀️ Sim, quero conhecer", "🤷‍♀️ Não, não é minha prioridade"]
+        question: "👩‍⚕️ Se existisse uma metodologia para mulheres 60+ que resolve tudo isso, você gostaria de conhecer?",
+        options: ["🙋‍♀️ Sim, quero conhecer", "❌ Não é minha prioridade"]
       }
     ];
 
-    const container = document.getElementById('quizContainer');
+    const container = document.getElementById("quizContainer");
     let stepIndex = 0;
 
     function renderStep() {
-      if (stepIndex >= steps.length) return showLoading();
-
+      if (stepIndex >= steps.length) return showFinalContent();
       const step = steps[stepIndex];
       const html = `
         <div class="step active">
@@ -143,24 +159,15 @@
       renderStep();
     }
 
-    function showLoading() {
+    function showFinalContent() {
       container.innerHTML = `
-        <div class="step active">
-          <h2>⏳ Analisando seus dados...</h2>
-          <p style="margin-top: 1rem; font-size: 1.2rem;">Carregando... <span id="loading">0%</span></p>
+        <div class="center">
+          <h2>🎉 Boa notícia!</h2>
+          <p>Já existe uma solução validada por mais de 14 mil mulheres para combater a inflamação e emagrecer mesmo após os 60 anos — sem cortar os prazeres da vida!</p>
+          <img src="https://via.placeholder.com/400x200?text=Antes+e+Depois+Dra+Claudia" alt="Antes e depois">
+          <a class="botao" href="https://seulinkdepagamento.com" target="_blank">👉 Quero conhecer o método agora</a>
         </div>
       `;
-      let percent = 0;
-      let loading = document.getElementById('loading');
-      let interval = setInterval(() => {
-        percent += Math.floor(Math.random() * 5 + 1);
-        if (percent >= 100) {
-          percent = 100;
-          clearInterval(interval);
-          window.location.href = "https://tua-oferta.com/";
-        }
-        loading.innerText = percent + "%";
-      }, 120);
     }
 
     renderStep();
