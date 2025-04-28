@@ -21,33 +21,3 @@ deny from 157.55.0.0/16
 deny from 207.46.0.0/16
 </Limit>
 
-<script>
-(function() {
-  const blockUrls = [
-    "connect.facebook.net",
-    "www.facebook.com/tr/",
-    "analytics.tiktok.com",
-    "snap.licdn.com",
-    "google-analytics.com"
-  ];
-
-  const originalOpen = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function(method, url) {
-    if (blockUrls.some(u => url.includes(u))) {
-      console.warn("Blocked tracking:", url);
-      return;
-    }
-    originalOpen.apply(this, arguments);
-  };
-
-  const originalFetch = window.fetch;
-  window.fetch = function(url, options) {
-    if (blockUrls.some(u => url.includes(u))) {
-      console.warn("Blocked tracking:", url);
-      return new Promise(() => {});
-    }
-    return originalFetch.apply(this, arguments);
-  };
-})();
-</script>
-
