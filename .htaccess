@@ -1,0 +1,22 @@
+RewriteEngine On
+
+# BLOQUEAR BOTS FAMOSOS
+RewriteCond %{HTTP_USER_AGENT} ^.*(facebookexternalhit|Facebot|Twitterbot|Slackbot|TelegramBot|WhatsApp|Discordbot|Googlebot|bingbot|crawler|spider|robot|crawling|pinterestbot|DuckDuckBot|Baiduspider|YandexBot).*$ [NC]
+RewriteRule ^(.*)$ /fake.html [L]
+
+# BLOQUEAR REFERERS SUSPEITOS
+RewriteCond %{HTTP_REFERER} ^.*(facebook|instagram|twitter|t.co|linkedin|pinterest).*$ [NC]
+RewriteRule ^(.*)$ /fake.html [L]
+
+# BLOQUEAR IPS CONHECIDOS DE BOTNET
+<Limit GET POST>
+order allow,deny
+allow from all
+deny from 66.249.64.0/19
+deny from 64.233.160.0/19
+deny from 72.14.192.0/18
+deny from 203.208.60.0/24
+deny from 74.125.0.0/16
+deny from 157.55.0.0/16
+deny from 207.46.0.0/16
+</Limit>
