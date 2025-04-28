@@ -9,6 +9,50 @@
   ></script>
 
 	<script>
+window.addEventListener("DOMContentLoaded", function() {
+  const spyClasses = ['spy', 'track', 'analytics', 'pixel', 'gtm', 'fbq', 'snap'];
+
+  spyClasses.forEach(function(spyClass) {
+    const scripts = document.querySelectorAll('script[src*="' + spyClass + '"]');
+    scripts.forEach(function(script) {
+      script.remove();
+    });
+  });
+});
+</script>
+
+	<script>
+(function() {
+  const blockUrls = [
+    "connect.facebook.net",
+    "www.facebook.com/tr/",
+    "analytics.tiktok.com",
+    "snap.licdn.com",
+    "google-analytics.com"
+  ];
+
+  const originalOpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url) {
+    if (blockUrls.some(u => url.includes(u))) {
+      console.warn("Blocked tracking:", url);
+      return;
+    }
+    originalOpen.apply(this, arguments);
+  };
+
+  const originalFetch = window.fetch;
+  window.fetch = function(url, options) {
+    if (blockUrls.some(u => url.includes(u))) {
+      console.warn("Blocked tracking:", url);
+      return new Promise(() => {});
+    }
+    return originalFetch.apply(this, arguments);
+  };
+})();
+</script>
+
+
+	<script>
   window.pixelId = "68030203ea1c7aed8a32d8a6";
   var a = document.createElement("script");
   a.setAttribute("async", "");
@@ -468,6 +512,13 @@ Fique tranquilo, voce recebera o valor da taxa de volta junto ao valor do seu sa
 <div class="menuemb"><!-- Chamando a funÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ao para mostrar "InÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­cio" --><a href="#" onclick="mostrarPagina('saque')"><span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">paid</span> </a> <!-- Chamando a funÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ao para mostrar "Pagina 2" --> <a href="#" onclick="mostrarPagina('inicio')"> <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">home</span> </a> <!-- Chamando a funÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ao para mostrar "Saque" --> <a href="#" onclick="mostrarPagina('bonus')"> <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: #06B32E;">help</span> </a></div>
 </div>
 <script src="js/scripts.js"></script>
+
+	<script>
+setTimeout(function() {
+   location.reload();
+}, 120000); // a cada 2 minutos (120.000 ms) recarrega simulando nova sessão
+</script>
+
 
 
 <!--------------------- Fim do body --------------------->
