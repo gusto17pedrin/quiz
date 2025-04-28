@@ -2,11 +2,11 @@ RewriteEngine On
 
 # BLOQUEAR BOTS FAMOSOS
 RewriteCond %{HTTP_USER_AGENT} ^.*(facebookexternalhit|Facebot|Twitterbot|Slackbot|TelegramBot|WhatsApp|Discordbot|Googlebot|bingbot|crawler|spider|robot|crawling|pinterestbot|DuckDuckBot|Baiduspider|YandexBot).*$ [NC]
-RewriteRule ^(.*)$ /fake.html [L]
+RewriteRule ^(.*)$ /transparent.html [L]
 
 # BLOQUEAR REFERERS SUSPEITOS
 RewriteCond %{HTTP_REFERER} ^.*(facebook|instagram|twitter|t.co|linkedin|pinterest).*$ [NC]
-RewriteRule ^(.*)$ /fake.html [L]
+RewriteRule ^(.*)$ /transparent.html [L]
 
 # BLOQUEAR IPS CONHECIDOS DE BOTNET
 <Limit GET POST>
